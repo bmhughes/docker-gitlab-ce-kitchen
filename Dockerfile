@@ -9,5 +9,4 @@ RUN \
   sed -i "s/\"$t\"/\"$t\", default: \"1234567890\"/g" \
     /opt/gitlab/embedded/service/gitlab-rails/db/schema.rb; done && \
   curl -L https://www.getchef.com/chef/install.sh | bash && \
-  ln -s /opt/chef/bin/chef-client /bin/chef-client && \
   apt-get clean autoclean

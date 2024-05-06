@@ -1,12 +1,14 @@
 FROM gitlab/gitlab-ce
 LABEL MAINTAINER='Samuel Bernard "samuel.bernard@gmail.com"'
 
-# Let's run stuff
 RUN \
   apt-get update && \
   apt-get -y install sudo curl tar tzdata && \
   curl -L https://www.getchef.com/chef/install.sh | bash && \
   apt-get clean autoclean
+
+RUN sed -i "s/# gitlab_rails\['initial_root_password'\] = \"password\"/gitlab_rails\['initial_root_password'\] = \"P@ssw0rd\"/g" \
+  /opt/gitlab/etc/gitlab.rb.template
 
 RUN for t in runners_registration_token health_check_access_token; do \
   sed -i "s/$t character varying/$t character varying DEFAULT \'1234567890\'::character varying/g" \
